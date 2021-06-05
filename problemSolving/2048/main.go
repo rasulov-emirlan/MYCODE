@@ -6,11 +6,16 @@ import (
 )
 
 func main() {
-	webGame()
+	game := newGame()
+	webGame(game)
 }
 
-func webGame() {
-	http.HandleFunc("/", index)
+func webGame(game *TheGame) {
+	http.HandleFunc("/", game.index)
+	http.HandleFunc("/moveUp", game.moveUp)
+	http.HandleFunc("/moveDown", game.moveDown)
+	http.HandleFunc("/moveLeft", game.moveLeft)
+	http.HandleFunc("/moveRight", game.moveRight)
 	http.ListenAndServe(":8080", nil)
 }
 
@@ -20,8 +25,7 @@ func init() {
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
-	game := newGame()
+func (game *TheGame) index(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecuteTemplate(w, "index.html", game)
 }
 
