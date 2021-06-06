@@ -8,19 +8,23 @@
 </head>
 <body>
 	{{if .}}
-		{{.Map}}
+		{{range .Map}}
+		<br>
+			{{range .}} {{.}} {{end}}
+		<br>
+		{{end}}
 	{{end}}
 	<form action="moveUp">
 		UP:   <input type="submit" value="moveUp" />
 	</form>
 	<form action="moveDown">
-		DOWN: <input type="submit" value="moveUp" />
+		DOWN: <input type="submit" value="moveDown" />
 	</form>
 	<form action="moveRight">
-		RIGHT:<input type="submit" value="moveUp" />
+		RIGHT:<input type="submit" value="moveRight" />
 	</form>
 	<form action="moveLeft">
-		LEFT: <input type="submit" value="moveUp" />
+		LEFT: <input type="submit" value="moveLeft" />
 	</form>
 </body>
 </html>

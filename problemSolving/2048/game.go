@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"net/http"
 )
 
 type TheGame struct {
@@ -46,7 +47,7 @@ func (game *TheGame) newChar() {
 	}
 }
 
-func (game *TheGame) moveUp() {
+func (game *TheGame) moveUp(w http.ResponseWriter, r *http.Request) {
 	for k := 0; k < 3; k++ {
 		for j := 0; j < 4; j++ {
 			for i := 0; i < 3; i++ {
@@ -64,9 +65,10 @@ func (game *TheGame) moveUp() {
 		}
 	}
 	game.newChar()
+	tpl.ExecuteTemplate(w, "index.html", game)
 }
 
-func (game *TheGame) moveDown() {
+func (game *TheGame) moveDown(w http.ResponseWriter, r *http.Request) {
 	for k := 0; k < 3; k++ {
 		for j := 0; j < 4; j++ {
 			for i := 3; i > 0; i-- {
@@ -84,9 +86,10 @@ func (game *TheGame) moveDown() {
 		}
 	}
 	game.newChar()
+	tpl.ExecuteTemplate(w, "index.html", game)
 }
 
-func (game *TheGame) moveRight() {
+func (game *TheGame) moveRight(w http.ResponseWriter, r *http.Request) {
 	for k := 0; k < 3; k++ {
 		for i := 0; i < 4; i++ {
 			for j := 3; j > 0; j-- {
@@ -104,9 +107,10 @@ func (game *TheGame) moveRight() {
 		}
 	}
 	game.newChar()
+	tpl.ExecuteTemplate(w, "index.html", game)
 }
 
-func (game *TheGame) moveLeft() {
+func (game *TheGame) moveLeft(w http.ResponseWriter, r *http.Request) {
 	for k := 0; k < 3; k++ {
 		for i := 0; i < 4; i++ {
 			for j := 0; j < 3; j++ {
@@ -124,4 +128,5 @@ func (game *TheGame) moveLeft() {
 		}
 	}
 	game.newChar()
+	tpl.ExecuteTemplate(w, "index.html", game)
 }
