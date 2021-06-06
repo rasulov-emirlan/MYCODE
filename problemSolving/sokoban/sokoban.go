@@ -4,17 +4,18 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 )
 
 type Game struct {
-	Map       [][]byte
-	OgMap     []string
-	ReqPoints int
-	OwnPoints int
-	I         int
-	J         int
+	Map       [][]rune `json:"map"`
+	OgMap     []string `json:"ogMap"`
+	ReqPoints int      `json:"reqPoints"`
+	OwnPoints int      `json:"ownPoints"`
+	I         int      `json:"i"`
+	J         int      `json:"j"`
 }
 
 func newGame(level string) Game {
@@ -45,9 +46,9 @@ func newGame(level string) Game {
 		}
 	}
 
-	var finalMap [][]byte
+	var finalMap [][]rune
 	for i := 0; i < len(aMap); i++ {
-		finalMap = append(finalMap, []byte(aMap[i]))
+		finalMap = append(finalMap, []rune(aMap[i]))
 	}
 
 	for i := 0; i < len(finalMap); i++ {
@@ -94,7 +95,8 @@ func (game *Game) printBoard() {
 
 // game mechanics
 
-func (game *Game) moveUp() {
+func (game *Game) moveUp(w http.ResponseWriter, r *http.Request) {
+	defer tpl.ExecuteTemplate(w, "index.html", game)
 	if game.Map[game.I-1][game.J] == ' ' {
 		game.Map[game.I-1][game.J] = '@'
 		if game.OgMap[game.I][game.J] == '.' {
@@ -164,7 +166,8 @@ func (game *Game) moveUp() {
 	}
 }
 
-func (game *Game) moveDown() {
+func (game *Game) moveDown(w http.ResponseWriter, r *http.Request) {
+	defer tpl.ExecuteTemplate(w, "index.html", game)
 	if game.Map[game.I+1][game.J] == ' ' {
 		game.Map[game.I+1][game.J] = '@'
 		if game.OgMap[game.I][game.J] == '.' {
@@ -233,7 +236,8 @@ func (game *Game) moveDown() {
 	}
 }
 
-func (game *Game) moveLeft() {
+func (game *Game) moveLeft(w http.ResponseWriter, r *http.Request) {
+	defer tpl.ExecuteTemplate(w, "index.html", game)
 	if game.Map[game.I][game.J-1] == ' ' {
 		game.Map[game.I][game.J-1] = '@'
 		if game.OgMap[game.I][game.J] == '.' {
@@ -302,7 +306,8 @@ func (game *Game) moveLeft() {
 	}
 }
 
-func (game *Game) moveRight() {
+func (game *Game) moveRight(w http.ResponseWriter, r *http.Request) {
+	defer tpl.ExecuteTemplate(w, "index.html", game)
 	if game.Map[game.I][game.J+1] == ' ' {
 		game.Map[game.I][game.J+1] = '@'
 		if game.OgMap[game.I][game.J] == '.' {
@@ -370,3 +375,280 @@ func (game *Game) moveRight() {
 		}
 	}
 }
+
+// func (game *Game) moveUp() {
+// 	if game.Map[game.I-1][game.J] == ' ' {
+// 		game.Map[game.I-1][game.J] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.I--
+// 		return
+// 	}
+// 	if game.Map[game.I-1][game.J] == '.' {
+// 		game.Map[game.I-1][game.J] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.I--
+// 		return
+// 	}
+// 	if game.Map[game.I-1][game.J] == '$' && game.I > 1 {
+// 		if game.Map[game.I-2][game.J] == ' ' {
+// 			game.Map[game.I-2][game.J] = '$'
+// 			game.Map[game.I-1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.I--
+// 		} else if game.Map[game.I-2][game.J] == '.' {
+// 			game.Map[game.I-2][game.J] = '*'
+// 			game.Map[game.I-1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.I--
+// 		}
+// 		return
+// 	}
+// 	if game.Map[game.I-1][game.J] == '*' && game.I > 1 {
+// 		if game.Map[game.I-2][game.J] == ' ' {
+// 			game.Map[game.I-2][game.J] = '$'
+// 			game.Map[game.I-1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints--
+// 			game.I--
+// 		} else if game.Map[game.I-2][game.J] == '.' {
+// 			game.Map[game.I-2][game.J] = '*'
+// 			game.Map[game.I-1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.I--
+// 		}
+// 		return
+// 	}
+// }
+
+// func (game *Game) moveDown() {
+// 	if game.Map[game.I+1][game.J] == ' ' {
+// 		game.Map[game.I+1][game.J] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.I++
+// 		return
+// 	}
+// 	if game.Map[game.I+1][game.J] == '.' {
+// 		game.Map[game.I+1][game.J] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.I++
+// 		return
+// 	}
+// 	if game.Map[game.I+1][game.J] == '$' && game.I < len(game.OgMap)-1 {
+// 		if game.Map[game.I+2][game.J] == ' ' {
+// 			game.Map[game.I+2][game.J] = '$'
+// 			game.Map[game.I+1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.I++
+// 		} else if game.Map[game.I+2][game.J] == '.' {
+// 			game.Map[game.I+2][game.J] = '*'
+// 			game.Map[game.I+1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.I++
+// 		}
+// 		return
+// 	}
+// 	if game.Map[game.I+1][game.J] == '*' && game.I < len(game.OgMap) {
+// 		if game.Map[game.I+2][game.J] == ' ' {
+// 			game.Map[game.I+2][game.J] = '$'
+// 			game.Map[game.I+1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints--
+// 			game.I++
+// 		} else if game.Map[game.I+2][game.J] == '.' {
+// 			game.Map[game.I+2][game.J] = '*'
+// 			game.Map[game.I+1][game.J] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.I++
+// 		}
+// 	}
+// }
+
+// func (game *Game) moveLeft() {
+// 	if game.Map[game.I][game.J-1] == ' ' {
+// 		game.Map[game.I][game.J-1] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.J--
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J-1] == '.' {
+// 		game.Map[game.I][game.J-1] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.J--
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J-1] == '$' && game.J > 1 {
+// 		if game.Map[game.I][game.J-2] == ' ' {
+// 			game.Map[game.I][game.J-2] = '$'
+// 			game.Map[game.I][game.J-1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.J--
+// 		} else if game.Map[game.I][game.J-2] == '.' {
+// 			game.Map[game.I][game.J-2] = '*'
+// 			game.Map[game.I][game.J-1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.J--
+// 		}
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J-1] == '*' && game.J > 1 {
+// 		if game.Map[game.I][game.J-2] == ' ' {
+// 			game.Map[game.I][game.J-2] = '$'
+// 			game.Map[game.I][game.J-1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints--
+// 			game.J--
+// 		} else if game.Map[game.I][game.J-2] == '.' {
+// 			game.Map[game.I][game.J-2] = '*'
+// 			game.Map[game.I][game.J-1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.J--
+// 		}
+// 	}
+// }
+
+// func (game *Game) moveRight() {
+// 	if game.Map[game.I][game.J+1] == ' ' {
+// 		game.Map[game.I][game.J+1] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.J++
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J+1] == '.' {
+// 		game.Map[game.I][game.J+1] = '@'
+// 		if game.OgMap[game.I][game.J] == '.' {
+// 			game.Map[game.I][game.J] = '.'
+// 		} else {
+// 			game.Map[game.I][game.J] = ' '
+// 		}
+// 		game.J++
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J+1] == '$' && game.J < len(game.OgMap[game.I])-1 {
+// 		if game.Map[game.I][game.J+2] == ' ' {
+// 			game.Map[game.I][game.J+2] = '$'
+// 			game.Map[game.I][game.J+1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.J++
+// 		} else if game.Map[game.I][game.J+2] == '.' {
+// 			game.Map[game.I][game.J+2] = '*'
+// 			game.Map[game.I][game.J+1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.J++
+// 		}
+// 		return
+// 	}
+// 	if game.Map[game.I][game.J+1] == '*' && game.J < len(game.OgMap[game.I])-1 {
+// 		if game.Map[game.I][game.J+2] == ' ' {
+// 			game.Map[game.I][game.J+2] = '$'
+// 			game.Map[game.I][game.J+1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints--
+// 			game.J++
+// 		} else if game.Map[game.I][game.J+2] == '.' {
+// 			game.Map[game.I][game.J+2] = '*'
+// 			game.Map[game.I][game.J+1] = '@'
+// 			if game.OgMap[game.I][game.J] == '.' {
+// 				game.Map[game.I][game.J] = '.'
+// 			} else {
+// 				game.Map[game.I][game.J] = ' '
+// 			}
+// 			game.OwnPoints++
+// 			game.J++
+// 		}
+// 	}
+// }

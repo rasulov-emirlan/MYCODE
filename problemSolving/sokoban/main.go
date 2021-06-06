@@ -1,7 +1,28 @@
 package main
 
-func main() {
+import (
+	"html/template"
+	"net/http"
+)
 
+func main() {
+	game := newGame("01")
+	http.HandleFunc("/", game.index)
+	http.HandleFunc("/moveUp", game.moveUp)
+	http.HandleFunc("/moveDown", game.moveDown)
+	http.HandleFunc("/moveLeft", game.moveLeft)
+	http.HandleFunc("/moveRight", game.moveRight)
+	http.ListenAndServe(":8080", nil)
+}
+
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
+}
+
+func (game *Game) index(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecuteTemplate(w, "index.html", game)
 }
 
 // Console game :

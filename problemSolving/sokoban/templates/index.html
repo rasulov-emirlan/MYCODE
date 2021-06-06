@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Sokoban</title>
 </head>
+
 <body>
-	
+	<script>
+		function convert(num) {
+			return num
+				.toString()    // convert number to string
+				.split('')     // convert string to array of characters
+				.map(Number)   // parse characters as numbers
+				.map(n => (n || 10) + 64)   // convert to char code, correcting for J
+				.map(c => String.fromCharCode(c))   // convert char codes to strings
+				.join('');     // join values together
+		}
+
+	</script>
+	{{if .}}
+	{{range .Map}}
+	<br>
+	{{range .}} {{.}} {{end}}
+	<br>
+	{{end}}
+	{{end}}
+	<form action="moveUp">
+		UP: <input type="submit" value="moveUp" />
+	</form>
+	<form action="moveDown">
+		DOWN: <input type="submit" value="moveDown" />
+	</form>
+	<form action="moveRight">
+		RIGHT:<input type="submit" value="moveRight" />
+	</form>
+	<form action="moveLeft">
+		LEFT: <input type="submit" value="moveLeft" />
+	</form>
 </body>
+
 </html>
