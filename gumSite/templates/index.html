@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="../static/stylesheets/style.css">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -23,16 +23,14 @@
 		{{if .}}
 		{{range .Data}}
 		<div class="card">
-			<img src="images/coockies.png" al="Food" style="width:100%">
-			<h1>{{.ID}}</h1>
-			<p class="price">{{.Name}}</p>
-			<p>{{.Cost}}</p>
+			<img src="../static/images/coockies.png" al="Food" style="width:100%">
+			<h1>{{.Name}}</h1>
+			<p class="price">{{.Cost}}</p>
+			<p>Description</p>
 			<p><button action="/add-to-cart">Add to Cart</button></p>
 		</div>
 		{{end}}
 		{{end}}
-
-
 	</div>
 </body>
 
