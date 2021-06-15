@@ -20,15 +20,16 @@
 		<div class="rightHeader"><a href="#">Cart</a></div>
 	</div>
 	<div class="products">
-
-		{{range .data}}
+		{{if .}}
+		{{range .Data}}
 		<div class="card">
-			<img src="images/coockies.png" alt="Denim Jeans" style="width:100%">
-			<h1>{{.Name}}</h1>
-			<p class="price">{{.Cost}}</p>
-			<p>Homemade ones</p>
+			<img src="images/coockies.png" al="Food" style="width:100%">
+			<h1>{{.ID}}</h1>
+			<p class="price">{{.Name}}</p>
+			<p>{{.Cost}}</p>
 			<p><button action="/add-to-cart">Add to Cart</button></p>
 		</div>
+		{{end}}
 		{{end}}
 
 

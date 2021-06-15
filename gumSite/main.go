@@ -18,7 +18,6 @@ func main() {
 
 // all vars
 var tpl *template.Template
-var db *sql.DB
 
 // all structs
 type Product struct {
@@ -27,36 +26,41 @@ type Product struct {
 	Cost int
 }
 
+type Products struct {
+	Data []Product
+}
+
 func init() {
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	var tID int
-	var tName string
-	var tCost int
-
-	connStr := "user=postgres dbname=local_server host=cybertron sslmode=verify-full password=postgres"
+	connStr := "user=postgres password=postgres dbname=local_server sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("Connected Db")
+
+	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM gummy_products")
 	if err != nil {
-		log.Println("Error ocured while reading from db: ", err.Error())
+		log.Panicln(err)
 	}
 
-	var data []Product
+	var id int
+	var name string
+	var cost int
+
+	var Data Products
 	for rows.Next() {
-		rows.Scan(&tID, &tName, &tCost)
-		fmt.Println(tID, " ", tName, " ", tCost)
-		data = append(data, Product{
-			ID:   tID,
-			Name: tName,
-			Cost: tCost,
+		rows.Scan(&id, &name, &cost)
+		Data.Data = append(Data.Data, Product{
+			ID:   id,
+			Name: name,
+			Cost: cost,
 		})
 	}
-	tpl.ExecuteTemplate(w, "index.html", data)
+	fmt.Println(Data.Data)
+	tpl.ExecuteTemplate(w, "index.html", Data)
 }
