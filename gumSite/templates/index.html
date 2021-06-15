@@ -21,14 +21,15 @@
 	</div>
 	<div class="products">
 
+		{{range .data}}
 		<div class="card">
 			<img src="images/coockies.png" alt="Denim Jeans" style="width:100%">
-			<h1>Coockies</h1>
-			<p class="price">$19.99</p>
+			<h1>{{.Name}}</h1>
+			<p class="price">{{.Cost}}</p>
 			<p>Homemade ones</p>
 			<p><button action="/add-to-cart">Add to Cart</button></p>
 		</div>
-
+		{{end}}
 
 
 	</div>
