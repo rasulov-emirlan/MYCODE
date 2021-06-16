@@ -19,12 +19,12 @@
 	<div class="header">
 		<div class="leftHeader"></div>
 		<div class="centerHeader">Tarchous</div>
-		<div class="rightHeader"><a href="#">Cart</a></div>
+		<div class="rightHeader"></div>
 	</div>
 
 	<div class="admin_forms">
 		<div class="addition_form">
-			<form action="/add_product" method="post">
+			<form action="/add_product" method="post" class="addition_form_itself">
 				<label for="fname">Название:</label>
 				<input type="text" id="name" name="name"><br><br>
 				<label for="lname">Описание:</label>
@@ -35,7 +35,7 @@
 			</form>
 		</div>
 		<div class="deletion_form">
-			<form action="/delete_product" method="delete">
+			<form action="/delete_product" method="delete" class="deletion_form_itself">
 				<label for="fname">Название:</label>
 				<input type="text" id="name" name="name"><br><br>
 				<input type="submit" value="Удалить">

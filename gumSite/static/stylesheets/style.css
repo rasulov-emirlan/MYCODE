@@ -87,10 +87,24 @@ body {
 	gap: 3rem 1rem;
 	padding: 3rem 0;
 	margin: 0 3rem;
+
 }
 .addition_form {
 	background-color: var(--headerColoring);
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
 }
+.addition_form_itself {
+	align-items: center;
+	justify-content: center;
+}
+
+
 .deletion_form {
 	background-color: var(--headerColoring);
+	display: flex;
+
+	justify-content: center;
 }
