@@ -12,7 +12,9 @@ import (
 
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+
 	http.HandleFunc("/", homePage)
+	http.HandleFunc("/admin_page", adminPage)
 
 	http.ListenAndServe(":8080", nil)
 	log.Println("Server is on!")
@@ -20,29 +22,26 @@ func main() {
 
 // all vars
 var tpl *template.Template
+var db *sql.DB
+var connStr string
 
-// all structs
-type Product struct {
-	ID   int
-	Name string
-	Cost int
-}
-
-type Products struct {
-	Data []Product
-}
+var errr error
 
 func init() {
 	tpl = template.Must(template.ParseGlob("templates/*.html"))
+	connStr = "user=postgres password=postgres dbname=local_server sslmode=disable"
+	db, errr = sql.Open("postgres", connStr)
+	if errr != nil {
+		log.Fatal(errr)
+	}
+	defer db.Close()
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	connStr := "user=postgres password=postgres dbname=local_server sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		log.Fatal(err)
+	db, errr = sql.Open("postgres", connStr)
+	if errr != nil {
+		log.Fatal(errr)
 	}
-
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM gummy_products")
@@ -50,17 +49,14 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 		log.Panicln(err)
 	}
 
-	var id int
-	var name string
-	var cost int
-
 	var Data Products
 	for rows.Next() {
-		rows.Scan(&id, &name, &cost)
+		rows.Scan(&id, &name, &desc, &cost)
 		Data.Data = append(Data.Data, Product{
-			ID:   id,
-			Name: name,
-			Cost: cost,
+			ID:          id,
+			Name:        name,
+			Description: desc,
+			Cost:        cost,
 		})
 	}
 	fmt.Println(Data.Data)

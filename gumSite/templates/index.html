@@ -9,13 +9,14 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+	<link rel="icon" href="../static/images/icon.png">
 
 	<title>Gummy</title>
 </head>
 
 <body>
 	<div class="header">
-		<div class="leftHeader">haha</div>
+		<div class="leftHeader"></div>
 		<div class="centerHeader">Tarchous</div>
 		<div class="rightHeader"><a href="#">Cart</a></div>
 	</div>
@@ -23,11 +24,15 @@
 		{{if .}}
 		{{range .Data}}
 		<div class="card">
-			<img src="../static/images/coockies.png" al="Food" style="width:100%">
-			<h1>{{.Name}}</h1>
-			<p class="price">{{.Cost}}</p>
-			<p>Description</p>
-			<p><button action="/add-to-cart">Add to Cart</button></p>
+			<div class="product_image">
+				<img src="../static/images/{{.Name}}.png" al="Food" style="width: 100%;">
+			</div>
+			<div class="product_description">
+				<h1>{{.Name}}</h1>
+				<p class="price">{{.Cost}} сом</p>
+				<p>{{.Description}}</p>
+				<p><button action="/add-to-cart">Добавить в корзину</button></p>
+			</div>
 		</div>
 		{{end}}
 		{{end}}

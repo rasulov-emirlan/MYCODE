@@ -54,37 +54,34 @@ body {
 	margin: 0 3rem;
 }
 
-.product {
+.card {
+	width: 10vw;
+	height: 10vh;
 	display: flex;
+	text-align: center;
+
 	justify-content: center;
 	align-items: center;
-	background-color: pink;
-	border-radius: 1em;
-}
-
-.product_image {
-
-}
-
-.product_image_itself {
-	width: 100px;
-}
-
-.card {
-	max-width: 300px;
-	margin: auto;
-
-	text-align: center;
 	
 	background-color: pink;
   }
+
+.product_image {
+	height: 6vh;
+	width: 100%;
+}
+
+.product_description {
+	height: 4vh;
+	width: 100%;
+}
   
-  .price {
+.price {
 	color: grey;
 	font-size: 22px;
-  }
+}
   
-  .card button {
+.card button {
 	border: none;
 	outline: 0;
 	padding: 12px;
@@ -94,7 +91,8 @@ body {
 	cursor: pointer;
 	width: 100%;
 	font-size: 18px;
-  }
+	
+}
   
   .card button:hover {
 	opacity: 0.7;
