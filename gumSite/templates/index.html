@@ -18,13 +18,13 @@
 	<div class="header">
 		<div class="leftHeader"></div>
 		<div class="centerHeader">Мармелад</div>
-		<div class="rightHeader"><a href="#">Корзина</a></div>
+		<div class="rightHeader"><a href="/templates/cart.html">Корзина</a></div>
 	</div>
 	<div class="products">
 		{{if .}}
 		{{range .Data}}
-		<div class="card">
-			<img src="../static/images/{{.Name}}.png" al="Food" style="width: 100%;">
+		<div class="card" style="width: 250px;">
+			<img src="../static/images/{{.Name}}.png" al="Food" style="height: 200px;">
 			<div class="product_description">
 				<h1>{{.Name}}</h1>
 				<p class="price">{{.Cost}} сом</p>

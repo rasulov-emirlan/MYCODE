@@ -44,6 +44,7 @@ func addProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	lastKey = id
 	fmt.Println(Data.Data)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func deleteProduct(w http.ResponseWriter, r *http.Request) {
@@ -76,4 +77,5 @@ func deleteProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	lastKey = id
 	fmt.Println(Data.Data)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

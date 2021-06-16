@@ -1,6 +1,6 @@
 :root {
-	--backgroundColoring:rgb(164, 255, 225);
-	--headerColoring:rgb(255, 195, 205);
+	--backgroundColoring:rgb(144, 255, 216);
+	--headerColoring:rgb(255, 167, 167);
 }
 * {
 	padding: 0;
@@ -54,7 +54,7 @@ body {
 	margin: 0 3rem;
 }
 .card {
-	max-width: 300px;
+
 	margin: auto;
 	text-align: center;
 	background-color: var(--headerColoring);
