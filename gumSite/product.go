@@ -16,3 +16,5 @@ var id int
 var name string
 var desc string
 var cost int
+
+var lastKey int

@@ -21,15 +21,29 @@
 		<div class="centerHeader">Tarchous</div>
 		<div class="rightHeader"><a href="#">Cart</a></div>
 	</div>
-	<form action="/add_product_to_db" method="post">
-		<label for="fname">Название:</label>
-		<input type="text" id="name" name="name"><br><br>
-		<label for="lname">Описание:</label>
-		<input type="text" id="description" name="description"><br><br>
-		<label for="lname">Цена:</label>
-		<input type="text" id="cost" name="cost"><br><br>
-		<input type="submit" value="Submit">
-	</form>
+
+	<div class="admin_forms">
+		<div class="addition_form">
+			<form action="/add_product" method="post">
+				<label for="fname">Название:</label>
+				<input type="text" id="name" name="name"><br><br>
+				<label for="lname">Описание:</label>
+				<input type="text" id="description" name="description"><br><br>
+				<label for="lname">Цена:</label>
+				<input type="text" id="cost" name="cost"><br><br>
+				<input type="submit" value="Добавить">
+			</form>
+		</div>
+		<div class="deletion_form">
+			<form action="/delete_product" method="delete">
+				<label for="fname">Название:</label>
+				<input type="text" id="name" name="name"><br><br>
+				<input type="submit" value="Удалить">
+			</form>
+		</div>
+	</div>
+
+
 </body>
 
 </html>

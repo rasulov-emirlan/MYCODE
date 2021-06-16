@@ -16,8 +16,9 @@ func main() {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/admin_page", adminPage)
 	http.HandleFunc("/add_product", addProduct)
+	http.HandleFunc("/delete_product", deleteProduct)
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8081", nil)
 	log.Println("Server is on!")
 }
 
@@ -60,6 +61,7 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 			Cost:        cost,
 		})
 	}
+	lastKey = id
 	fmt.Println(Data.Data)
 	tpl.ExecuteTemplate(w, "index.html", Data)
 }
