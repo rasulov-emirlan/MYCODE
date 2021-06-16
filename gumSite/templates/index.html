@@ -24,19 +24,17 @@
 		{{if .}}
 		{{range .Data}}
 		<div class="card">
-			<div class="product_image">
-				<img src="../static/images/{{.Name}}.png" al="Food" style="width: 100%;">
-			</div>
+			<img src="../static/images/{{.Name}}.png" al="Food" style="width: 100%;">
 			<div class="product_description">
 				<h1>{{.Name}}</h1>
 				<p class="price">{{.Cost}} сом</p>
 				<p>{{.Description}}</p>
 				<p><button action="/add-to-cart">Добавить в корзину</button></p>
 			</div>
+
 		</div>
 		{{end}}
 		{{end}}
-	</div>
 </body>
 
 </html>

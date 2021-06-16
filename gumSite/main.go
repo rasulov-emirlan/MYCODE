@@ -15,6 +15,7 @@ func main() {
 
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/admin_page", adminPage)
+	http.HandleFunc("/add_product", addProduct)
 
 	http.ListenAndServe(":8080", nil)
 	log.Println("Server is on!")
