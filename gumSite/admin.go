@@ -24,7 +24,7 @@ func addProduct(w http.ResponseWriter, r *http.Request) {
 	if errr != nil {
 		log.Println("Error ocured while getting values from forms: ", errr)
 	}
-	lastKey += 2
+	lastKey += 1
 	_, err := db.Query("INSERT INTO gummy_products(id, name, description, cost) VALUES($1, $2, $3, $4);", lastKey, name, desc, cost)
 	if err != nil {
 		log.Println("Error occured while reading db:", err)
@@ -44,7 +44,6 @@ func addProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	lastKey = id
 	fmt.Println(Data.Data)
-	tpl.ExecuteTemplate(w, "index.html", Data)
 }
 
 func deleteProduct(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +57,6 @@ func deleteProduct(w http.ResponseWriter, r *http.Request) {
 	if errr != nil {
 		log.Println("Error ocured while getting values from forms: ", errr)
 	}
-	lastKey += 2
 	_, err := db.Query("DELETE FROM gummy_products WHERE name=$1;", name)
 	if err != nil {
 		log.Println("Error occured while reading db:", err)
@@ -78,5 +76,4 @@ func deleteProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	lastKey = id
 	fmt.Println(Data.Data)
-	tpl.ExecuteTemplate(w, "index.html", Data)
 }

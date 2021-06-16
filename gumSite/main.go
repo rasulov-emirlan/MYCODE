@@ -36,6 +36,22 @@ func init() {
 	if errr != nil {
 		log.Fatal(errr)
 	}
+	rows, err := db.Query("SELECT * FROM gummy_products")
+	if err != nil {
+		log.Panicln(err)
+	}
+
+	var Data Products
+	for rows.Next() {
+		rows.Scan(&id, &name, &desc, &cost)
+		Data.Data = append(Data.Data, Product{
+			ID:          id,
+			Name:        name,
+			Description: desc,
+			Cost:        cost,
+		})
+	}
+	lastKey = id
 	defer db.Close()
 }
 
