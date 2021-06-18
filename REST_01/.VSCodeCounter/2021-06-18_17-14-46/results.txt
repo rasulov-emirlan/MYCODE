@@ -1,0 +1,64 @@
+Date : 2021-06-18 17:14:46
+Directory : /home/enkidu/opt/go/src/MYCODE/REST_01
+Total : 25 files,  658 codes, 0 comments, 130 blanks, all 788 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Go       |         20 |        627 |          0 |        125 |        752 |
+| XML      |          1 |         14 |          0 |          3 |         17 |
+| Makefile |          1 |          7 |          0 |          2 |          9 |
+| SQL      |          2 |          6 |          0 |          0 |          6 |
+| TOML     |          1 |          4 |          0 |          0 |          4 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                       | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                          |         25 |        658 |          0 |        130 |        788 |
+| cmd                                                                                        |          1 |         24 |          0 |          7 |         31 |
+| cmd/apiserver                                                                              |          1 |         24 |          0 |          7 |         31 |
+| configs                                                                                    |          1 |          4 |          0 |          0 |          4 |
+| internal                                                                                   |         19 |        603 |          0 |        118 |        721 |
+| internal/app                                                                               |         19 |        603 |          0 |        118 |        721 |
+| internal/app/apiserver                                                                     |          4 |        242 |          0 |         33 |        275 |
+| internal/app/model                                                                         |          4 |        140 |          0 |         25 |        165 |
+| internal/app/store                                                                         |         11 |        221 |          0 |         60 |        281 |
+| internal/app/store/sqlstore                                                                |          5 |        131 |          0 |         29 |        160 |
+| internal/app/store/teststore                                                               |          3 |         75 |          0 |         23 |         98 |
+| migrations                                                                                 |          2 |          6 |          0 |          0 |          6 |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                   | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/enkidu/opt/go/src/MYCODE/REST_01/Makefile                                            | Makefile |          7 |          0 |          2 |          9 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/cmd/apiserver/main.go                               | Go       |         24 |          0 |          7 |         31 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/configs/apiserver.toml                              | TOML     |          4 |          0 |          0 |          4 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/go.mod                                              | XML      |         14 |          0 |          3 |         17 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/apiserver/apiserver.go                 | Go       |         28 |          0 |          7 |         35 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/apiserver/config.go                    | Go       |         13 |          0 |          3 |         16 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/apiserver/server.go                    | Go       |        100 |          0 |         16 |        116 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/apiserver/server_internal_test.go      | Go       |        101 |          0 |          7 |        108 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/model/testing.go                       | Go       |          8 |          0 |          3 |         11 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/model/user.go                          | Go       |         41 |          0 |          9 |         50 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/model/user_test.go                     | Go       |         81 |          0 |         10 |         91 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/model/validations.go                   | Go       |         10 |          0 |          3 |         13 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/errors.go                        | Go       |          5 |          0 |          3 |          8 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/repository.go                    | Go       |          6 |          0 |          3 |          9 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/sqlstore/store.go                | Go       |         24 |          0 |          6 |         30 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/sqlstore/store_test.go           | Go       |         15 |          0 |          4 |         19 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/sqlstore/testing.go              | Go       |         22 |          0 |          3 |         25 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/sqlstore/userrepository.go       | Go       |         39 |          0 |          7 |         46 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/sqlstore/userrepository_test.go  | Go       |         31 |          0 |          9 |         40 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/store.go                         | Go       |          4 |          0 |          2 |          6 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/teststore/store.go               | Go       |         21 |          0 |          7 |         28 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/teststore/userrepository.go      | Go       |         27 |          0 |          9 |         36 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/internal/app/store/teststore/userrepository_test.go | Go       |         27 |          0 |          7 |         34 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/migrations/20210617232423_create_users.down.sql     | SQL      |          1 |          0 |          0 |          1 |
+| /home/enkidu/opt/go/src/MYCODE/REST_01/migrations/20210617232423_create_users.up.sql       | SQL      |          5 |          0 |          0 |          5 |
+| Total                                                                                      |          |        658 |          0 |        130 |        788 |
++--------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
