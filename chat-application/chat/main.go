@@ -7,9 +7,6 @@ import (
 	"path/filepath"
 	"sync"
 	"text/template"
-
-	"github.com/stretchr/gomniauth"
-	"github.com/stretchr/gomniauth/providers/google"
 )
 
 // templ represents a single template
@@ -32,13 +29,6 @@ func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse()
 	// setup gomniauth
-	gomniauth.SetSecurityKey("PUT YOURE AUTH KEY HERE")
-	gomniauth.WithProviders(
-		google.New("1032558436062-c9fs9lmmn1hij7ltfle478n4a244mg0u.apps.googleusercontent.com",
-			"P4UYDPhaWNedLPDPFJhRPxym",
-			"http://localhost:8080/auth/callback/google"),
-	)
-
 	r := newRoom()
 
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))

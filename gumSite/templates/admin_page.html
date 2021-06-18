@@ -24,16 +24,15 @@
 
 	<div class="admin_forms">
 		<div class="addition_form">
-			<form action="/add_product" method="post" class="addition_form_itself">
+			<form action="/add_product" enctype="multipart/form-data" method="post" class="addition_form_itself">
 				<label for="fname">Название:</label>
 				<input type="text" id="name" name="name"><br><br>
 				<label for="lname">Описание:</label>
 				<input type="text" id="description" name="description"><br><br>
 				<label for="lname">Цена:</label>
 				<input type="text" id="cost" name="cost"><br><br>
-				<a href="/">
-					<input type="submit" value="Добавить">
-				</a>
+				<input type="file" name="myFile" />
+				<input type="submit" value="Добавить">
 			</form>
 		</div>
 		<div class="deletion_form">

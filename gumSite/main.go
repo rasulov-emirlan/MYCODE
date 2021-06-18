@@ -18,7 +18,7 @@ func main() {
 	http.HandleFunc("/add_product", addProduct)
 	http.HandleFunc("/delete_product", deleteProduct)
 
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":8080", nil)
 	log.Println("Server is on!")
 }
 
