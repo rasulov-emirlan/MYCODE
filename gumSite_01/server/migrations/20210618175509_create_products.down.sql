@@ -1,1 +1,0 @@
-DROP TABLE gumsite_products;
