@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"gumsite_01/storage"
 	"net/http"
 	"strconv"
@@ -78,6 +79,26 @@ func (s *Server) AddProduct() http.HandlerFunc {
 			s.error(w, r, http.StatusInternalServerError, err)
 		}
 		s.respond(w, r, http.StatusCreated, p)
+	}
+}
+
+func (s *Server) SelectAllOrders() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		o, err := storage.SelectAllOrders(s.store)
+		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		}
+		fmt.Fprint(w, o)
+		s.respond(w, r, http.StatusOK, o)
+	}
+}
+func (s *Server) InsertOrder() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := storage.InsertOrder(s.store, storage.TestOrder()); err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+		}
+		s.respond(w, r, http.StatusCreated, "done")
 	}
 }
 

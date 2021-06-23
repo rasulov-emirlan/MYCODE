@@ -1,3 +1,3 @@
 build:
-	go build -o main
-	./main
+	go build -v ./
+	./gumsite_01
