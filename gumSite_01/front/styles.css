@@ -1,0 +1,89 @@
+:root {
+	--texColor:#b8b8b8;
+	--backgroundColor:#2c2f33;
+	--componentColor:#23272a;
+	--buttonColor:#7289da;
+	--pinkColor:rgb(255, 57, 90);
+
+	--mainTransition: 0.5s;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	color: var(--texColor);
+	font-family: sans-serif;
+	text-decoration: none;
+}
+
+body {
+	background-color: var(--backgroundColor);
+}
+
+button {
+	text-transform: uppercase;
+	font-size: 1rem;
+	background: var(--buttonColor);
+	color: var(--backgroundColor);
+	border: 1px solid var(--buttonColor);
+	transition: var(--mainTransition);
+	cursor: pointer;
+}
+
+button:hover {
+	background: transparent;
+	color: var(--buttonColor);
+}
+
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 60px;
+	
+	background-color: var(--componentColor);
+}
+
+.navbar-left {
+	display: flex;
+	justify-content: center;
+	width: 33%;
+}
+.navbar-center {
+	width: 33%;
+	display: flex;
+	justify-content: center;
+}
+.navbar-right {
+	width: 33%;
+	display: flex;
+	justify-content: center;
+
+	position: relative;
+}
+
+.cart-icon { 
+	cursor: pointer;
+}
+
+
+.products {
+	width: 90vw;
+	margin: 0 auto;
+	max-width: 1170px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-column-gap: 1.5rem;
+	grid-row-gap: 2rem;
+}
+
+.product {
+	margin: auto;
+	text-align: center;
+}
+
+.bag-btn {
+	height: 2rem;
+	width: 100%;
+}
