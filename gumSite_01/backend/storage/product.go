@@ -36,6 +36,8 @@ func SelectAllProducts(store Storage) (*[]Product, error) {
 	return &p, nil
 }
 
+// FindByName selects a row from gumsite_products
+// where column name=(second argument of FindByName of type string)
 func FindProductByName(store Storage, name string) (*Product, error) {
 	row, err := store.db.Query("SELECT id, name, description, cost, image FROM gumsite_products WHERE name=$1", name)
 	if err != nil {
@@ -49,6 +51,8 @@ func FindProductByName(store Storage, name string) (*Product, error) {
 	return nil, nil
 }
 
+// InsertProduct inserts a row that is descibed by an argument of type Product
+// into gumsite_products
 func InserProduct(store Storage, p Product) error {
 	if _, err := store.db.Query("INSERT INTO gumsite_products(name, description, cost, image) VALUES($1,$2,$3, $4)", p.Name, p.Description, p.Cost, p.Image); err != nil {
 		return err
@@ -56,6 +60,8 @@ func InserProduct(store Storage, p Product) error {
 	return nil
 }
 
+// DeleteProduct deletes a row from gumsite_products
+// where a name=(second argument from DelectProduct of type string)
 func DeleteProduct(store Storage, name string) error {
 	if _, err := store.db.Query("DELETE FROM gumsite_products WHERE name=$1", name); err != nil {
 		return err
