@@ -37,6 +37,11 @@ func (s *Server) Start(port string, dbConfig string) error {
 }
 
 func (s *Server) handleRequests() {
+	s.r.HandleFunc("/selectAllCategories", s.SelectAllCategories()).Methods("GET")
+	s.r.HandleFunc("/selectCategoryByName", s.SelectCategoryByName()).Methods("GET")
+	s.r.HandleFunc("/insertCategory", s.InsertCategory()).Methods("POST")
+	s.r.HandleFunc("/deleteCategory", s.DeleteCategory()).Methods("DELETE")
+
 	// handles all functions for product assortiment management
 	s.r.HandleFunc("/selectAllProducts", s.SelectProducts()).Methods("GET")
 	s.r.HandleFunc("/selectProductByName", s.SelectProductByName()).Methods("GET")
@@ -45,5 +50,8 @@ func (s *Server) handleRequests() {
 
 	// handles all functions for order management
 	s.r.HandleFunc("/selectAllOrders", s.SelectAllOrders()).Methods("GET")
+	s.r.HandleFunc("/selectOrderByName", s.SelectOrderByName()).Methods("GET")
 	s.r.HandleFunc("/insertOrder", s.InsertOrder()).Methods("POST")
+	s.r.HandleFunc("/deleteOrder", s.DeleteOrder()).Methods("DELETE")
+
 }

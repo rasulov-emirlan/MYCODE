@@ -1,6 +1,8 @@
 package storage
 
-import "github.com/lib/pq"
+import (
+	"github.com/lib/pq"
+)
 
 // Order describes a row of gumsite_orders from postgresql
 type Order struct {
@@ -71,6 +73,28 @@ func SelectAllOrders(store Storage) (*[]Order, error) {
 	return &o, nil
 }
 
+func SelectOrderByName(store Storage, name string) (*Order, error) {
+	rows, err := store.db.Query("SELECT id, customer, address, cost, payment, order_date, order_date_shipping, orders FROM gumsite_orders WHERE customer=$1", name)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		o := Order{}
+		rows.Scan(
+			&o.ID,
+			&o.Customer,
+			&o.Address,
+			&o.Cost,
+			&o.Payment,
+			&o.OrderDate,
+			&o.OrderShippingDate,
+			&o.Orders,
+		)
+		return &o, nil
+	}
+	return nil, err
+}
+
 // InsertOrder inserts a new row into gumsite_order
 // by taking an argument of type Order
 func InsertOrder(store Storage, order Order) error {
@@ -84,6 +108,14 @@ func InsertOrder(store Storage, order Order) error {
 		order.OrderShippingDate,
 		pq.Array(order.Orders),
 	); err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOrderByName delete a row from gumsite_orders
+func DeleteOrderByName(store Storage, name string) error {
+	if _, err := store.db.Query("DELETE FROM gumsite_orders WHERE customer=$1", name); err != nil {
 		return err
 	}
 	return nil
