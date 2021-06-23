@@ -8,6 +8,9 @@ import (
 	"strconv"
 )
 
+// SelctProducts return a variable of type http.HandleFunct that
+// Selects all products from database by calling storage.selectAllProducts
+// it returns all products in json format
 func (s *Server) SelectProducts() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		p, err := storage.SelectAllProducts(s.store)
@@ -19,6 +22,10 @@ func (s *Server) SelectProducts() http.HandlerFunc {
 	}
 }
 
+// SelctProductsByName return a variable of type http.HandleFunct that
+// takes a (json string: name) and searches for a product with the same name in db
+// by calling a storage.FindProductByName
+// it returns that product in json format
 func (s *Server) SelectProductByName() http.HandlerFunc {
 	type Request struct {
 		Name string `json:"name"`
@@ -93,6 +100,10 @@ func (s *Server) SelectAllOrders() http.HandlerFunc {
 		s.respond(w, r, http.StatusOK, o)
 	}
 }
+
+// InsertOrder returns a valiable of type http.HandleFunc
+// that inserts a new order into the db table gumsite_orders
+// by calling storage.InsertOrder
 func (s *Server) InsertOrder() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := storage.InsertOrder(s.store, storage.TestOrder()); err != nil {
@@ -102,12 +113,16 @@ func (s *Server) InsertOrder() http.HandlerFunc {
 	}
 }
 
+// error is an analog of respond
+// but used exucivly for sending errors back to the client
 func (s *Server) error(w http.ResponseWriter, r *http.Request, code int, err error) {
 	s.respond(w, r, code, map[string]string{
 		"error": err.Error(),
 	})
 }
 
+// respond sends a json data
+// usualy used to send json back to the client
 func (s *Server) respond(w http.ResponseWriter, r *http.Request, code int, data interface{}) {
 	w.WriteHeader(code)
 	if data != nil {

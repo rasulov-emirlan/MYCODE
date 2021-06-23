@@ -1,5 +1,6 @@
 package storage
 
+// Product describes a row of gumsite_roducts from postgresql
 type Product struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
@@ -8,6 +9,8 @@ type Product struct {
 	Image       string `json:"image"`
 }
 
+// SelectAllProducts returns a pointer to an array of type Product
+// which is a copy of all rows from gumsite_products
 func SelectAllProducts(store Storage) (*[]Product, error) {
 	p := []Product{}
 	var id int

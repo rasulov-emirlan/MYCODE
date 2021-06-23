@@ -37,12 +37,13 @@ func (s *Server) Start(port string, dbConfig string) error {
 }
 
 func (s *Server) handleRequests() {
+	// handles all functions for product assortiment management
 	s.r.HandleFunc("/selectAllProducts", s.SelectProducts()).Methods("GET")
 	s.r.HandleFunc("/selectProductByName", s.SelectProductByName()).Methods("GET")
-	s.r.HandleFunc("/selectAllOrders", s.SelectAllOrders()).Methods("GET")
-
 	s.r.HandleFunc("/insertProduct", s.AddProduct()).Methods("POST")
 	s.r.HandleFunc("/deleteProduct", s.DeleteProduct()).Methods("DELETE")
 
+	// handles all functions for order management
+	s.r.HandleFunc("/selectAllOrders", s.SelectAllOrders()).Methods("GET")
 	s.r.HandleFunc("/insertOrder", s.InsertOrder()).Methods("POST")
 }

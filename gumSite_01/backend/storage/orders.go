@@ -2,6 +2,7 @@ package storage
 
 import "github.com/lib/pq"
 
+// Order describes a row of gumsite_orders from postgresql
 type Order struct {
 	ID                int    `json:"id"`
 	Customer          string `json:"customer"`
@@ -13,6 +14,8 @@ type Order struct {
 	OrderShippingDate string `json:"order_shipping_date"`
 }
 
+// TestOrder return an Order struct that
+// used for testing functions of orders.go
 func TestOrder() Order {
 	return Order{
 		ID:                1,
@@ -26,6 +29,8 @@ func TestOrder() Order {
 	}
 }
 
+// SelectAllOrders returns all rows from gumsite_order
+// it might return error if it won't find anything
 func SelectAllOrders(store Storage) (*[]Order, error) {
 	rows, err := store.db.Query("SELECT id, customer, address, cost, payment, order_date, order_date_shipping, orders FROM gumsite_orders")
 	if err != nil {
@@ -65,6 +70,9 @@ func SelectAllOrders(store Storage) (*[]Order, error) {
 	}
 	return &o, nil
 }
+
+// InsertOrder inserts a new row into gumsite_order
+// by taking an argument of type Order
 func InsertOrder(store Storage, order Order) error {
 	if _, err := store.db.Query(
 		"INSERT INTO gumsite_orders (customer, address, cost, payment, order_date, order_date_shipping, orders) VALUES($1,$2,$3,$4,$5,$6, $7)",
