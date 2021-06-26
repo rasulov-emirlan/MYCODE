@@ -1,6 +1,7 @@
 const productsDOM = document.querySelector('.products')
 const cartItemsDOM = document.querySelector('.cart-items')
 const cartShowBtn = document.querySelector('.cart-icon')
+const cartCloseBtn = document.querySelector('.close-cart')
 const cartOverlay = document.querySelector('.cart-overlay')
 const cartDOM = document.querySelector('.cart')
 
@@ -8,35 +9,28 @@ const cartDOM = document.querySelector('.cart')
 let cart = []
 
 cartShowBtn.addEventListener("click", function () {
-	cartOverlay.className = '.cart-overlay-show'
+	cartOverlay.className = 'cart-overlay-show'
 
-	cartDOM.className = '.cart-show'
-	console.log("log");
+	cartDOM.className = 'cart-show'
+})
+cartCloseBtn.addEventListener("click", function () {
+	cartOverlay.className = 'cart-overlay'
+
+	cartDOM.className = 'cart'
 })
 function setupBtns() {
 	const buttons = [...document.querySelectorAll(".bag-btn")];
 	buttonsDOM = buttons;
 	buttons.forEach(button => {
-		let id = button.dataset.id;
-		let inCart = cart.find(item => item.id === id);
-		if (inCart) {
-			button.innerHTML = "In Cart";
-			button.disabled = true;
-			return
-		}
-		button.addEventListener("click", (event) => {
-			event.target.innerText = "In Cart";
-			event.target.disabled = true;
+		button.addEventListener('click', () => {
+			getProductByName(button.data - id)
+			console.log("working")
+		})
 
-			let cartItem = { ...getProductByName(event), amount: 1 };
-
-			cart = [...cart, cartItem];
-
-			Storage.saveCart(cart);
-		});
 	});
 }
 
+setupBtns()
 function getProductByName(thename) {
 	fetch('http://localhost:8080/selectProdcutByName', {
 		method: "GET",
@@ -49,17 +43,21 @@ function getProductByName(thename) {
 	}).then(res => res.json())
 		.then(data => {
 			let elements = `
-				<div class="product">
-					<img src="./images/${data.name}.png" al="Food" style="height: 200px;">
-					<div class="product_description">
-						<h1>${data.name}</h1>
-						<p class="price">${data.cost} сом</p>
-						<button class="bag-btn" value="${data.name}">Добавить в корзину</button>
-					</div>
-	
+			<div class="cart-item">
+				<img src="./images/${data.name}.png" alt="" style="height: 100%;">
+				<div>
+					<h4>${data.name}</h4>
+					<h5>${data.cost} сом</h5>
+					<span class="remove-item">убрать</span>
 				</div>
+				<div>
+					<i class="fas fa-chevron-up"></i>
+					<p class="item-amount">1</p>
+					<i class="fas fa-chevron-down"></i>
+				</div>
+			</div>
 				`
-			return elements
+			cartItemsDOM += elements;
 		});
 }
 
@@ -76,7 +74,7 @@ function getAllProducts() {
 					<div class="product_description">
 						<h1>${element.name}</h1>
 						<p class="price">${element.cost} сом</p>
-						<button class="bag-btn">Добавить в корзину</button>
+						<button class="bag-btn" data=id=${element.name}>Добавить в корзину</button>
 					</div>
 	
 				</div>
@@ -88,5 +86,5 @@ function getAllProducts() {
 
 getAllProducts()
 document.addEventListener("DOMContentLoaded", () => {
-
+	setupBtns()
 });
