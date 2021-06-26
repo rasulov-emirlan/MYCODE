@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
 	"path/filepath"
@@ -26,25 +25,18 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var addr = flag.String("addr", ":8080", "The addr of the application.")
-	flag.Parse()
+	// var addr = flag.String("addr", ":8080", "The addr of the application.")
+	// flag.Parse()
 	// setup gomniauth
 	r := newRoom()
 
-	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
-	http.Handle("/login", &templateHandler{filename: "login.html"})
-	http.HandleFunc("/auth/", loginHandler)
+	http.Handle("/chat", &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)
 
 	// http.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir(""))))
 	go r.run()
 
-	if err := http.ListenAndServe(*addr, nil); err != nil {
-		log.Fatal("ListenAndServe:", err)
-	}
-
-	log.Println("Starting web server on", *addr)
-	if err := http.ListenAndServe(*addr, nil); err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 }
